@@ -16,5 +16,22 @@ class Event extends Model
      */
     protected $table = 'events';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'date',
+    ];
+
+    /**
+     * Следует ли обрабатывать временные метки модели.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
 
 }
