@@ -7,11 +7,27 @@ use App\Models\Person;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class PersonController extends Controller
 {
     public function create(Request $request)
     {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|alpha|max:255',
+            'phone' => 'unique:people|string|required',
+            'telegram' => 'string|max:255',
+            'specialization' => 'in:JS,WEB,SAP,ESB,SUP,1С',
+            'inviter_id' => 'integer',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json([
+                'error' => current($errors),
+            ]);
+        }
         $specialization = $request->input('specialization');
         $person = new Person;
         $person['name'] = $request->input('name');
