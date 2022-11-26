@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Person;
 use App\Models\PersonAnswer;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -30,30 +31,19 @@ class PersonAnswerController extends Controller
     {
         $personId = $request->input('personId');
         $personAnswer = Person::where('id', $personId)->first();
-        $answer = PersonAnswer::where('person_id', $personAnswer['id'])->first();
-        $answers = Task::where('id', $answer['task_id'])->get();
-//        return $answers;
-        dd($answers);
-//        $personAnswers = [
-//            'title' => $answers['title'],
-//            'description' => $answers['description'],
-//            'answer' => $answers['answer'],
-//            'userAnswer' => $answer['answer'],
-//            'specialization' => $answers['specialization'],
-//
-//        ];
-//        dd($personAnswers);
-//
-////        return [
-////            'person' => $personAnswer,
-////            'answer' => [
-////                'title' => $answers['title'],
-////                'description' => $answers['description'],
-////                'answer' => $answers['answer'],
-////                'userAnswer' => $answer['answer'],
-////                'specialization' => $answers['specialization'],
-////
-////            ],
-////        ];
+        $answer = PersonAnswer::where('person_id', $personAnswer['id'])->get('task_id');
+        $tasks = Task::all();
+
+        foreach ($tasks as $task => $value){
+            $data[] = [
+                'person' => Person::where('id', $personId)->get(),
+                'id'=>$value['id'],
+                'title'=>$value['title'],
+                'description'=>$value['description'],
+                'answer'=>$value['answer'],
+                'userAnswer' => PersonAnswer::where('task_id', $value['id'])->get('answer'),
+            ];
+        }
+        return $data;
     }
 }
