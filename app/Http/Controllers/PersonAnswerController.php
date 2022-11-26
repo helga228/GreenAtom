@@ -26,8 +26,16 @@ class PersonAnswerController extends Controller
 
     }
 
-    public function personAnswer()
+    public function personAnswer(Request $request)
     {
-        $person = PersonAnswer::where([]);
+        $personId = $request->input('personId');
+        $personAnswer = Person::where('id', $personId)->first();
+        $answer = PersonAnswer::where('person_id', $personAnswer['id'])->first();
+        $answers = Task::where('id', $answer['task_id']);
+        return [
+            'person' => $personAnswer,
+            'answer' => $answer,
+            'answers' => $answers
+        ];
     }
 }

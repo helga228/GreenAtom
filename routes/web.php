@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PersonAnswerController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
@@ -24,5 +25,7 @@ Route::get('/event/detail', [EventController::class, 'detail']);
 Route::get('/task/list', [TaskController::class, 'list']);
 
 Route::post('/person/create', [PersonController::class, 'create']);
-Route::get('/person/list', [\App\Http\Controllers\PersonAnswerController::class, 'personList']);
+Route::get('/person/list', [PersonAnswerController::class, 'personList']);
+Route::post('/personAnswer/create', [PersonAnswerController::class, 'create']);
+Route::get('/personAnswer/detail', [PersonAnswerController::class, 'personAnswer']);
 

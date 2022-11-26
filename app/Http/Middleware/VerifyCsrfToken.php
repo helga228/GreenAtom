@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'event/create',
         'event/create',
-        'person/create'
+        'person/create',
+        'personAnswer/create'
     ];
 }
