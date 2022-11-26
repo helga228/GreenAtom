@@ -25,7 +25,10 @@ Route::get('/event/detail', [EventController::class, 'detail']);
 Route::get('/task/list', [TaskController::class, 'list']);
 
 Route::post('/person/create', [PersonController::class, 'create']);
+
 Route::get('/person/list', [PersonAnswerController::class, 'personList']);
+
 Route::post('/personAnswer/create', [PersonAnswerController::class, 'create']);
+
 Route::get('/personAnswer/detail', [PersonAnswerController::class, 'personAnswer']);
 
