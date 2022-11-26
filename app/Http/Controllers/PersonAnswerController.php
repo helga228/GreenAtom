@@ -19,18 +19,15 @@ class PersonAnswerController extends Controller
         $answer->save();
     }
 
-    public function answerList()
+    public function personList()
     {
-        $personAnswer = PersonAnswer::all();
-        $person = Person::where('id', $personAnswer['person_id'])->all();
-        $task = Task::where('id', $personAnswer['task_id'])->all();
-        $answer = PersonAnswer::where('task_id', $task['id'])->all();
+        $personList = Person::all();
+        return $personList;
 
-        return [
-            'person' => $person,
-            'task' => $task,
-            'answer' => $answer,
+    }
 
-        ];
+    public function personAnswer()
+    {
+        $person = PersonAnswer::where([]);
     }
 }

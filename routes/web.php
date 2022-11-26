@@ -21,7 +21,8 @@ Route::get('/event/delete', [EventController::class, 'delete']);
 Route::get('/event/list', [EventController::class, 'list']);
 Route::get('/event/detail', [EventController::class, 'detail']);
 
-Route::get('/tasks', [TaskController::class, 'list']);
+Route::get('/task/list', [TaskController::class, 'list']);
 
 Route::post('/person/create', [PersonController::class, 'create']);
-Route::get('/answer/list', [\App\Http\Controllers\PersonAnswerController::class, 'answerList']);
+Route::get('/person/list', [\App\Http\Controllers\PersonAnswerController::class, 'personList']);
+
