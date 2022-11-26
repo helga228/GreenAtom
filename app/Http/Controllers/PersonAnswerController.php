@@ -6,6 +6,7 @@ use App\Models\Person;
 use App\Models\PersonAnswer;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -13,9 +14,8 @@ class PersonAnswerController extends Controller
 {
     /**
      * @param Request $request
-     * @return string
      */
-    public function create(Request $request): string
+    public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'personId' => 'exists:people,id',
@@ -28,14 +28,17 @@ class PersonAnswerController extends Controller
                 'error' => current($errors),
             ]);
         }
-        $answer = new PersonAnswer();
-        $answer['person_id'] = $request->input('personId');
-        $answer['task_id'] = $request->input('taskId');
-        $answer['answer'] = $request->input('answer');
-        if($answer->save()){
-            return "Сохранено";
+        $data = $request->all();
+        foreach ($data as $key=>$value){
+            DB::table('person_answers')->insert([
+                $task[] = [
+                    'person_id' => $value['personId'],
+                    'task_id' => $value['taskId'],
+                    'answer' => $value['answer'],
+                ]
+            ]);
         }
-        return "не удалось сохранить запись";
+        return $task;
     }
 
     /**

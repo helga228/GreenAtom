@@ -22,7 +22,7 @@ Route::get('/event/delete', [EventController::class, 'delete']);
 Route::get('/event/list', [EventController::class, 'list']);
 Route::get('/event/detail', [EventController::class, 'detail']);
 
-Route::get('/task/list', [TaskController::class, 'list']);
+Route::post('/task/create', [TaskController::class, 'create']);
 
 Route::post('/person/create', [PersonController::class, 'create']);
 

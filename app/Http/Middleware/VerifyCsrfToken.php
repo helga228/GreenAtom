@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware
         'event/create',
         'event/create',
         'person/create',
+        '/task/create',
         'personAnswer/create'
     ];
 }
