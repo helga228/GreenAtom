@@ -19,7 +19,7 @@ class PersonController extends Controller
             'phone' => 'unique:people|string|required',
             'telegram' => 'string|max:255',
             'specialization' => 'in:JS,WEB,SAP,ESB,SUP,1С',
-            'inviter_id' => 'integer',
+            'inviter_id' => 'exists:people,id',
         ]);
 
         if ($validator->fails()) {

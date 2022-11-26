@@ -3,13 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
 {
     public function create(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'date' => 'date|required',
+
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json([
+                'error' => current($errors),
+            ]);
+        }
         $event = new Event;
         $event['name'] = $request->input('name');
         $event['date'] = $request->input('date');
@@ -20,6 +34,16 @@ class EventController extends Controller
 
     public function detail(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'id' => 'exists:event',
+
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json([
+                'error' => current($errors),
+            ]);
+        }
         $id = $request->get('id');
         return Event::where('id', $id)->first();
     }
@@ -31,8 +55,22 @@ class EventController extends Controller
 
     public function delete(Request $request): string
     {
-        //todo - дописать условие о том что удалить евент нельзя если его id уже используется в других таблицах
+        $validator = Validator::make($request->all(), [
+            'id' => 'exists:event',
+            'date' => 'date|required',
+
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json([
+                'error' => current($errors),
+            ]);
+        }
         $id = $request->get('id');
+        $PersonEvent = Person::where('event_id', $id)->first();
+        if($PersonEvent != null){
+            return 'Запись используется в другой таблице, не удалай';
+        }
         DB::table('events')
             ->where('id', '=', $id)
             ->delete();
