@@ -7,6 +7,7 @@ use App\Models\PersonAnswer;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 
 class PersonAnswerController extends Controller
@@ -27,23 +28,25 @@ class PersonAnswerController extends Controller
 
     }
 
-    public function personAnswer(Request $request)
+
+        public function personAnswer(Request $request)
     {
         $personId = $request->input('personId');
-        $personAnswer = Person::where('id', $personId)->first();
-        $answer = PersonAnswer::where('person_id', $personAnswer['id'])->get('task_id');
         $tasks = Task::all();
 
         foreach ($tasks as $task => $value){
-            $data[] = [
-                'person' => Person::where('id', $personId)->get(),
-                'id'=>$value['id'],
+            $data[] =[
+                'person' => Person::where('id', $personId)->first(),
                 'title'=>$value['title'],
                 'description'=>$value['description'],
                 'answer'=>$value['answer'],
-                'userAnswer' => PersonAnswer::where('task_id', $value['id'])->get('answer'),
+                'userAnswer' => PersonAnswer::where('task_id', $value['id'])->get('answer')->first(),
             ];
+
         }
         return $data;
+
+
+
     }
 }
