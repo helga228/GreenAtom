@@ -31,11 +31,17 @@ class PersonAnswerController extends Controller
         $personId = $request->input('personId');
         $personAnswer = Person::where('id', $personId)->first();
         $answer = PersonAnswer::where('person_id', $personAnswer['id'])->first();
-        $answers = Task::where('id', $answer['task_id']);
+        $answers = Task::where('id', $answer['task_id'])->first();
         return [
             'person' => $personAnswer,
-            'answer' => $answer,
-            'answers' => $answers
+            'answer' => [
+                'title' => $answers['title'],
+                'description' => $answers['description'],
+                'answer' => $answers['answer'],
+                'userAnswer' => $answer['answer'],
+                'specialization' => $answers['specialization'],
+
+            ],
         ];
     }
 }
