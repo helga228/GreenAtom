@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PersonController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\EventController;
 
@@ -18,3 +20,8 @@ Route::post('/event/create', [EventController::class, 'create']);
 Route::get('/event/delete', [EventController::class, 'delete']);
 Route::get('/event/list', [EventController::class, 'list']);
 Route::get('/event/detail', [EventController::class, 'detail']);
+
+Route::get('/tasks', [TaskController::class, 'list']);
+
+Route::post('/person/create', [PersonController::class, 'create']);
+Route::get('/answer/list', [\App\Http\Controllers\PersonAnswerController::class, 'answerList']);

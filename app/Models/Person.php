@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class Person extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class Event extends Model
      *
      * @var string
      */
-    protected $table = 'events';
+    protected $table = 'people';
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +23,11 @@ class Event extends Model
      */
     protected $fillable = [
         'name',
-        'date',
+        'phone',
+        'telegram',
+        'specialization',
+        'inviterId',
+        'event_id',
     ];
 
     /**
@@ -32,5 +36,4 @@ class Event extends Model
      * @var bool
      */
     public $timestamps = false;
-
 }
