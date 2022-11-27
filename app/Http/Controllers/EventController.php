@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Person;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -35,7 +36,7 @@ class EventController extends Controller
     public function detail(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'exists:event',
+            'id' => 'exists:events',
 
         ]);
         if ($validator->fails()) {
@@ -45,7 +46,13 @@ class EventController extends Controller
             ]);
         }
         $id = $request->get('id');
-        return Event::where('id', $id)->first();
+        $event = Event::where('id', $id)->first();
+
+        $personInEvent = Person::where('event_id', $event['id'])->get();
+        return [
+            'event' => $event,
+            'person' => $personInEvent,
+        ];
     }
 
     public function list()
