@@ -41,10 +41,8 @@ class PersonAnswerController extends Controller
         return $task;
     }
 
-    /**
-     * @return Person[]|\Illuminate\Database\Eloquent\Collection
-     */
-    public function personList(): self
+
+    public function personList()
     {
         return Person::all();
     }
