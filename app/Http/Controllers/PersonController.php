@@ -18,7 +18,7 @@ class PersonController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|alpha|max:255',
+            'name' => 'required|string|max:255',
             'phone' => 'unique:people|string|required',
             'telegram' => 'string|max:255',
             'specialization' => 'in:JS,WEB,SAP,ESB,SUP,1С',
