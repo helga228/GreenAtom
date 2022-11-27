@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Person;
+use App\Models\Statistic;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,6 +34,7 @@ class EventController extends Controller
 
     }
 
+
     public function detail(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -52,13 +54,23 @@ class EventController extends Controller
         return [
             'event' => $event,
             'person' => $personInEvent,
+            'statistic' => Statistic::where('event_id', $id)->first('count')
         ];
+    }
+    public function statistic(Request $request)
+    {
+        $id = $request->get('eventId');
+        $statistic = Statistic::where('event_id', $id)->first();
+        $statistic['count'] = ($statistic['count'] + 1);
+        $statistic->save();
+
     }
 
     public function list()
     {
         return Event::all();
     }
+
 
     public function delete(Request $request): string
     {

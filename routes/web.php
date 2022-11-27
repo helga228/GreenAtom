@@ -32,3 +32,6 @@ Route::post('/personAnswer/create', [PersonAnswerController::class, 'create']);
 
 Route::get('/personAnswer/detail', [PersonAnswerController::class, 'personAnswer']);
 
+Route::get('/visit', [EventController::class, 'statistic']);
+Route::get('/statistic', [EventController::class, 'getStatistic']);
+
