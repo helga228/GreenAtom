@@ -39,7 +39,10 @@ class PersonController extends Controller
         $person['inviter_id'] = $request->input('inviterId');
         $person['event_id'] = $request->input('eventId');
         if($person->save()){
-            return  Task::all()->where('specialization', $specialization);
+            return  [
+                Task::all()->where('specialization', $specialization),
+                Task::all()->where('specialization', "-")
+                ];
         }
         return 'не сохранено';
     }

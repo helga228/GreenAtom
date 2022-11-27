@@ -20,7 +20,6 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'string|required',
             'answer' => 'required|max:255',
-            'specialization' => 'in:JS,WEB,SAP,ESB,SUP,1С',
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors()->all();
