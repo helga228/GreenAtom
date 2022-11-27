@@ -21,7 +21,6 @@ class PersonController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'unique:people|string|required',
             'telegram' => 'string|max:255',
-            'specialization' => 'in:JS,WEB,SAP,ESB,SUP,1С',
             'inviterId' => 'exists:people,id',
         ]);
 
@@ -40,7 +39,9 @@ class PersonController extends Controller
         $person['inviter_id'] = $request->input('inviterId');
         $person['event_id'] = $request->input('eventId');
         if($person->save()){
-            return  Task::all()->where('specialization', $specialization);
+            return  [
+
+            ]Task::all()->where('specialization', $specialization);
         }
         return 'не сохранено';
     }
