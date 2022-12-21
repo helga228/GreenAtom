@@ -15,8 +15,14 @@ class CreateStatisticsTable extends Migration
     {
         Schema::create('statistics', function (Blueprint $table) {
             $table->id();
-            $table->integer('event_id');
-            $table->integer('count');
+            $table->unsignedBigInteger('event_id');
+            $table->foreign('event_id')
+                ->references('id')->on('events')
+                ->onDelete('cascade');
+            $table->unsignedBigInteger('person_id');
+            $table->foreign('person_id')
+                ->references('id')->on('people')
+                ->onDelete('cascade');
         });
     }
 

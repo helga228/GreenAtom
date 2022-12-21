@@ -36,4 +36,9 @@ class Person extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }

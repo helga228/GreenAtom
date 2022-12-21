@@ -15,8 +15,14 @@ class CreatePersonAnswersTable extends Migration
     {
         Schema::create('person_answers', function (Blueprint $table) {
             $table->id();
-            $table->integer('person_id');
-            $table->integer('task_id');
+            $table->unsignedBigInteger('person_id');
+            $table->foreign('person_id')
+                ->references('id')->on('people')
+                ->onDelete('cascade');
+            $table->unsignedBigInteger('task_id');
+            $table->foreign('task_id')
+                ->references('id')->on('tasks')
+                ->onDelete('cascade');
             $table->string('answer');
         });
     }

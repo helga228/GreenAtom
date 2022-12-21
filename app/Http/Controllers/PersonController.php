@@ -38,11 +38,11 @@ class PersonController extends Controller
         $person['specialization'] = $request->input('specialization');
         $person['inviter_id'] = $request->input('inviterId');
         $person['event_id'] = $request->input('eventId');
+        $tasks = Task::all()->whereIn('specialization', [$specialization, '-'])->all();
         if($person->save()){
             return  [
                 'personId' => $person['id'],
-                Task::all()->where('specialization', $specialization),
-                Task::all()->where('specialization', "-")
+                'tasks' => array_merge($tasks),
                 ];
         }
         return 'не сохранено';

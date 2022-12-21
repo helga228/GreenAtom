@@ -20,7 +20,10 @@ class CreatePeopleTable extends Migration
             $table->string('telegram')->nullable();
             $table->string('specialization');
             $table->string('inviter_id')->nullable();
-            $table->string('event_id');
+            $table->unsignedBigInteger('event_id');
+            $table->foreign('event_id')
+                ->references('id')->on('events')
+                ->onDelete('cascade');
         });
     }
 

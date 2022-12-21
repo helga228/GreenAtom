@@ -54,18 +54,22 @@ class PersonAnswerController extends Controller
     public function personAnswer(Request $request): array
     {
         $personId = $request->input('personId');
-        $tasks = Task::all();
+        $person = Person::where('id', $personId)->first();
+        $tasks = Task::where('specialization',  $person['specialization'])->orWhere('specialization', '-') ->get();
 
         foreach ($tasks as $task => $value){
+            $userAnswer = PersonAnswer::where('task_id', $value['id'])->get('answer')->first();
             $data[] =[
-                'person' => Person::where('id', $personId)->first(),
                 'title'=>$value['title'],
                 'description'=>$value['description'],
                 'answer'=>$value['answer'],
-                'userAnswer' => PersonAnswer::where('task_id', $value['id'])->get('answer')->first(),
+                'userAnswer' => $userAnswer,
             ];
         }
-        return $data;
+        return [
+            'person' => $person,
+            'answer' => $data
+        ];
 
     }
 }
